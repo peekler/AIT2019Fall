@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AITHello</string>
+    <string name="button_main">Mutasd</string>
+    <string name="text_welcome">Hello barátom</string>
+</resources>
