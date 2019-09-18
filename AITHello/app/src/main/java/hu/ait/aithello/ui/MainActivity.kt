@@ -1,10 +1,11 @@
-package hu.ait.aithello
+package hu.ait.aithello.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import hu.ait.aithello.Car
+import hu.ait.aithello.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
