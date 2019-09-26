@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TicTacToe</string>
+    <string name="text_next">NEXT</string>
+
+    <string name="text_next_player">The next player is: %1$s and the time is %2$d</string>
 </resources>

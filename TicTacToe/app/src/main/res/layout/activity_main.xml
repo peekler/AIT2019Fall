@@ -5,15 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
-    <TextView
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            android:text="Hello TicTacToe!"
+            android:textSize="26sp" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <hu.ait.tictactoe.view.TicTacToeView
+            android:id="@+id/ticView"
+            android:layout_width="300dp"
+            android:layout_height="600dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello TicTacToe!"/>
+        android:layout_marginVertical="50dp"
+        android:text="Clear" />
 
-    <hu.ait.tictactoe.view.TicTacToeView
-        android:layout_width="300dp"
-        android:layout_height="300dp"/>
+    <ToggleButton
+        android:id="@+id/btnFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="Try"
+        android:textOn="Flag"/>
 
 </LinearLayout>
