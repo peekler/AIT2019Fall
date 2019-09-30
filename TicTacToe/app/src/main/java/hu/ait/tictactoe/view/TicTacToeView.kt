@@ -148,11 +148,6 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
     }
 
 
-    fun clearGame() {
 
-        TicTacToeModel.resetModel()
-        invalidate()
-
-    }
 
 }
