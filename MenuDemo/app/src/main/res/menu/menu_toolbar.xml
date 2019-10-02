@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_start"
+        android:icon="@drawable/ic_start"
+        app:showAsAction="always|withText"
+        android:title="Start"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:title="About"/>
+
+    <item
+        android:id="@+id/action_help"
+        android:title="Help"/>
+
+</menu>
