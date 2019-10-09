@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         showFragmentByTag(FragmentOne.TAG, false)
     }
 
-    private fun showFragmentByTag(tag: String, toBackStack: Boolean) {
+    private fun showFragmentByTag(tag: String,
+                                  toBackStack: Boolean) {
         var fragment: Fragment? = supportFragmentManager.findFragmentByTag(tag)
         if (fragment == null) {
             if (FragmentOne.TAG == tag) {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if (fragment != null) {
             val ft = supportFragmentManager
                 .beginTransaction()
-            ft.replace(R.id.fragmentContainer, fragment!!, tag)
+            ft.add(R.id.fragmentContainer, fragment!!, tag)
             if (toBackStack) {
                 ft.addToBackStack(null)
             }
