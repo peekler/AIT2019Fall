@@ -15,7 +15,8 @@ class DetailsActivity : AppCompatActivity() {
 
         //getIntent()
 
-        var data = intent.getStringExtra(MainActivity.KEY_DETAILS)
+        var data = intent.getStringExtra(
+            MainActivity.KEY_DETAILS)
 
         tvData.text = data
         title = DataHolder.name
@@ -23,7 +24,8 @@ class DetailsActivity : AppCompatActivity() {
 
         btnAccept.setOnClickListener {
             var intentResult = Intent()
-            intentResult.putExtra(MainActivity.KEY_TIME, System.currentTimeMillis())
+            intentResult.putExtra(MainActivity.KEY_TIME,
+                System.currentTimeMillis())
 
             setResult(Activity.RESULT_OK, intentResult)
 
