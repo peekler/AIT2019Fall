@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     fun queryAllGrades(){
         Thread {
-            val allGrades = AppDatabase.getInstance(this@MainActivity).gradeDao().getAllGrades()
+            val allGrades = AppDatabase.getInstance(this@MainActivity).
+                gradeDao().getSpecificGrades("A+")
 
             runOnUiThread {
                 tvResult.text = ""

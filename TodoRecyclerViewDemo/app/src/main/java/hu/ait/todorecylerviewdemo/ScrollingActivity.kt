@@ -6,13 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.GridLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import hu.ait.todorecylerviewdemo.adapter.TodoAdapter
+import hu.ait.todorecylerviewdemo.data.AppDatabase
 import hu.ait.todorecylerviewdemo.data.Todo
+import hu.ait.todorecylerviewdemo.touch.TodoReyclerTouchCallback
 import kotlinx.android.synthetic.main.activity_scrolling.*
 import java.util.*
 
-class ScrollingActivity : AppCompatActivity() {
+class ScrollingActivity : AppCompatActivity(), TodoDialog.TodoHandler {
+
 
     lateinit var todoAdapter: TodoAdapter
 
@@ -22,33 +29,56 @@ class ScrollingActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        todoAdapter = TodoAdapter(this)
-        recyclerTodo.adapter = todoAdapter
+        initRecyclerView()
+
 
         fab.setOnClickListener {
             showAddTodoDialog()
         }
     }
 
-    fun showAddTodoDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Enter Todo")
-        val input = EditText(this)
-        builder.setView(input)
+    private fun initRecyclerView() {
+        Thread {
+            var todoList =
+                AppDatabase.getInstance(this@ScrollingActivity).todoDao().getAllTodo()
 
-        builder.setPositiveButton("OK", { dialog, which ->
-            todoAdapter.addTodo(
-                Todo(
-                    Date(System.currentTimeMillis()).toString(),
-                    input.text.toString(),
-                    false)
-            )
-        })
-        builder.setNegativeButton("Cancel") {
-                dialog, which -> dialog.cancel()
-        }
+            runOnUiThread {
+                todoAdapter = TodoAdapter(this, todoList)
+                recyclerTodo.adapter = todoAdapter
 
-        builder.show()
+                var itemDecoration = DividerItemDecoration(
+                    this,
+                    DividerItemDecoration.VERTICAL
+                )
+                recyclerTodo.addItemDecoration(itemDecoration)
+
+                //recyclerTodo.layoutManager =
+                //    GridLayoutManager(this, 2)
+
+                val callback = TodoReyclerTouchCallback(todoAdapter)
+                val touchHelper = ItemTouchHelper(callback)
+                touchHelper.attachToRecyclerView(recyclerTodo)
+            }
+        }.start()
     }
 
+    fun showAddTodoDialog() {
+        TodoDialog().show(supportFragmentManager, "TAG_TODO_DIALOG")
+    }
+
+    fun saveTodo(todo: Todo) {
+        Thread {
+            AppDatabase.getInstance(this).todoDao().insertTodo(
+                todo
+            )
+
+            runOnUiThread {
+                todoAdapter.addTodo(todo)
+            }
+        }.start()
+    }
+
+    override fun todoCreated(item: Todo) {
+        saveTodo(item)
+    }
 }

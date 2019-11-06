@@ -1,7 +1,13 @@
 package hu.ait.todorecylerviewdemo.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "todo")
 data class Todo(
-    var createDate: String,
-    var todoText: String,
-    var done: Boolean
+    @PrimaryKey(autoGenerate = true) var todoId: Long?,
+    @ColumnInfo(name = "createDate") var createDate: String,
+    @ColumnInfo(name = "todoText") var todoText: String,
+    @ColumnInfo(name = "done") var done: Boolean
 )
