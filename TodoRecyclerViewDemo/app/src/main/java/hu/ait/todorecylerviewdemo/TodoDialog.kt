@@ -1,5 +1,7 @@
 package hu.ait.todorecylerviewdemo
 
+
+
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +16,7 @@ class TodoDialog : DialogFragment() {
 
     interface TodoHandler {
         fun todoCreated(item: Todo)
+        fun todoUpdated(item: Todo)
     }
 
     private lateinit var todoHandler: TodoHandler
@@ -32,6 +35,8 @@ class TodoDialog : DialogFragment() {
     private lateinit var etTodoDate: EditText
     private lateinit var etTodoText: EditText
 
+    var isEditMode = false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
 
@@ -44,6 +49,20 @@ class TodoDialog : DialogFragment() {
         etTodoDate = rootView.etDate
         etTodoText = rootView.etTodo
         builder.setView(rootView)
+
+        isEditMode = ((arguments != null) && arguments!!.containsKey(
+            ScrollingActivity.KEY_TODO
+        ))
+
+        if (isEditMode) {
+            builder.setTitle("Edit todo")
+
+            var todo: Todo = (arguments?.getSerializable(ScrollingActivity.KEY_TODO) as Todo)
+
+            etTodoDate.setText(todo.createDate)
+            etTodoText.setText(todo.todoText)
+        }
+
 
         builder.setPositiveButton("OK") {
                 dialog, witch -> // empty
@@ -58,8 +77,11 @@ class TodoDialog : DialogFragment() {
         val positiveButton = (dialog as AlertDialog).getButton(Dialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
             if (etTodoText.text.isNotEmpty()) {
+                if (isEditMode) {
+                    handleTodoEdit()
+                } else {
                     handleTodoCreate()
-
+                }
                 dialog.dismiss()
             } else {
                 etTodoText.error = "This field can not be empty"
@@ -76,5 +98,15 @@ class TodoDialog : DialogFragment() {
                 false
             )
         )
+    }
+
+    private fun handleTodoEdit() {
+        val todoToEdit = arguments?.getSerializable(
+            ScrollingActivity.KEY_TODO
+        ) as Todo
+        todoToEdit.createDate = etTodoDate.text.toString()
+        todoToEdit.todoText = etTodoText.text.toString()
+
+        todoHandler.todoUpdated(todoToEdit)
     }
 }

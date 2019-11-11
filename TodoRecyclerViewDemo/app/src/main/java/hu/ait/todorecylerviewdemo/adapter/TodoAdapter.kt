@@ -18,10 +18,10 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
     var todoList = mutableListOf<Todo>()
 
     val context: Context
-    constructor(context: Context, listTodos: List<Todo>){
+    constructor(context: Context, todos: List<Todo>){
         this.context = context
 
-        todoList.addAll(listTodos)
+        todoList.addAll(todos)
 
         //for (i in 0..20){
         //    todoList.add(Todo("2019", "Todo $i", false))
@@ -49,14 +49,49 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
         holder.btnDelete.setOnClickListener {
             deleteTodo(holder.adapterPosition)
         }
+
+        holder.cbTodo.setOnClickListener {
+            todo.done = holder.cbTodo.isChecked
+            updateTodo(todo)
+        }
+
+        holder.btnEdit.setOnClickListener {
+            (context as ScrollingActivity).showEditTodoDialog(
+                todo, holder.adapterPosition
+            )
+        }
     }
+
+    fun updateTodo(todo: Todo) {
+        Thread {
+            AppDatabase.getInstance(context).todoDao().updateTodo(todo)
+        }.start()
+    }
+
+    fun updateTodoOnPosition(todo: Todo, index: Int) {
+        todoList.set(index, todo)
+        notifyItemChanged(index)
+    }
+
 
     fun deleteTodo(index: Int){
         Thread{
             AppDatabase.getInstance(context).todoDao().deleteTodo(todoList[index])
+
             (context as ScrollingActivity).runOnUiThread {
                 todoList.removeAt(index)
                 notifyItemRemoved(index)
+            }
+        }.start()
+    }
+
+    fun deleteAllTodos() {
+        Thread {
+            AppDatabase.getInstance(context).todoDao().deleteAllTodo()
+
+            (context as ScrollingActivity).runOnUiThread {
+                todoList.clear()
+                notifyDataSetChanged()
             }
         }.start()
     }
@@ -77,11 +112,11 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
     }
 
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cbTodo = itemView.cbTodo
         val tvDate = itemView.tvDate
         val btnDelete = itemView.btnDelete
+        val btnEdit = itemView.btnEdit
     }
 
 }

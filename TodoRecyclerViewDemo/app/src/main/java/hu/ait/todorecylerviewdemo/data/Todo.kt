@@ -3,6 +3,7 @@ package hu.ait.todorecylerviewdemo.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "todo")
 data class Todo(
@@ -10,4 +11,4 @@ data class Todo(
     @ColumnInfo(name = "createDate") var createDate: String,
     @ColumnInfo(name = "todoText") var todoText: String,
     @ColumnInfo(name = "done") var done: Boolean
-)
+) : Serializable

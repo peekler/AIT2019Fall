@@ -26,5 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
