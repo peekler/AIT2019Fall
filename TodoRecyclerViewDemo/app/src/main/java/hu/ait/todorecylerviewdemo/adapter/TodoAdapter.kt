@@ -46,6 +46,12 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
         holder.cbTodo.isChecked = todo.done
         holder.tvDate.text = todo.createDate
 
+        if (todo.category == 1) {
+            holder.ivIcon.setImageResource(R.drawable.todohead)
+        } else if (todo.category == 2) {
+            holder.ivIcon.setImageResource(R.mipmap.ic_launcher)
+        }
+
         holder.btnDelete.setOnClickListener {
             deleteTodo(holder.adapterPosition)
         }
@@ -117,6 +123,7 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
         val tvDate = itemView.tvDate
         val btnDelete = itemView.btnDelete
         val btnEdit = itemView.btnEdit
+        val ivIcon = itemView.ivIcon
     }
 
 }
