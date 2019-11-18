@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var demoAnim = AnimationUtils.loadAnimation(
-            this@MainActivity,
+            this,
             R.anim.demo_anim)
 
         demoAnim.setAnimationListener(

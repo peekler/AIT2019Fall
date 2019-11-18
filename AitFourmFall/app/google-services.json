@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "927706512596",
+    "firebase_url": "https://aitforumfall-4029b.firebaseio.com",
+    "project_id": "aitforumfall-4029b",
+    "storage_bucket": "aitforumfall-4029b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927706512596:android:c05bbd793d4c7950eb4f41",
+        "android_client_info": {
+          "package_name": "hu.ait.aitfourmfall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927706512596-0f8sbnlvc5acvbptuhesun4k6d9tnpni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.ait.aitfourmfall",
+            "certificate_hash": "8b1ea5c1455068433f66f2bfbd79de35cdd71375"
+          }
+        },
+        {
+          "client_id": "927706512596-t01j6p3o1qom70clvs063odd73qfm82i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0jnH9zEmd4jjBKRvm4o3lU-xaM4uZxLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927706512596-t01j6p3o1qom70clvs063odd73qfm82i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
