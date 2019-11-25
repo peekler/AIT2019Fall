@@ -66,7 +66,7 @@ class ForumActivity : AppCompatActivity() {
                                 Toast.makeText(this@ForumActivity, "update: ${dc.document.id}", Toast.LENGTH_LONG).show()
                             }
                             DocumentChange.Type.REMOVED -> {
-                                //postsAdapter.removePostByKey(dc.document.id)
+                                postsAdapter.removePostByKey(dc.document.id)
                             }
                         }
                     }

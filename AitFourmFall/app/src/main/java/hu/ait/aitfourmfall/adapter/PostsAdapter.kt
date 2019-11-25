@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
 import hu.ait.aitfourmfall.R
 import hu.ait.aitfourmfall.data.Post
 import kotlinx.android.synthetic.main.post_row.view.*
@@ -38,6 +40,25 @@ class PostsAdapter(
         holder.tvTitle.setText(post.title)
         holder.tvBody.setText(post.body)
 
+
+        if (post.imgUrl.isEmpty()) {
+            holder.ivPhoto.visibility = View.GONE
+        } else {
+            holder.ivPhoto.visibility = View.VISIBLE
+            Glide.with(context).load(post.imgUrl).into(holder.ivPhoto)
+        }
+
+
+        // if this is my post message
+        if (post.uid == uid) {
+            holder.btnDelete.visibility = View.VISIBLE
+            holder.btnDelete.setOnClickListener {
+                removePost(holder.adapterPosition)
+            }
+        } else {
+            holder.btnDelete.visibility = View.GONE
+        }
+
         setAnimation(holder.itemView, position)
     }
 
@@ -47,6 +68,28 @@ class PostsAdapter(
 
         notifyDataSetChanged()
     }
+
+
+    private fun removePost(index: Int) {
+        FirebaseFirestore.getInstance().collection("posts").document(
+            postKeys[index]
+        ).delete()
+
+        postsList.removeAt(index)
+        postKeys.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
+
+    fun removePostByKey(key: String) {
+        val index = postKeys.indexOf(key)
+        if (index != -1) {
+            postsList.removeAt(index)
+            postKeys.removeAt(index)
+            notifyItemRemoved(index)
+        }
+    }
+
 
 
     private fun setAnimation(viewToAnimate: View, position: Int) {
@@ -62,5 +105,7 @@ class PostsAdapter(
         val tvAuthor = itemView.tvAuthor
         val tvTitle = itemView.tvTitle
         val tvBody = itemView.tvBody
+        val btnDelete = itemView.btnDelete
+        val ivPhoto = itemView.ivPhoto
     }
 }
