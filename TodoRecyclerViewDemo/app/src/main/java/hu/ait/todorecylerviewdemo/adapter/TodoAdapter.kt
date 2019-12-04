@@ -42,6 +42,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var todo = todoList.get(holder.adapterPosition)
 
+
+
         holder.cbTodo.text = todo.todoText
         holder.cbTodo.isChecked = todo.done
         holder.tvDate.text = todo.createDate

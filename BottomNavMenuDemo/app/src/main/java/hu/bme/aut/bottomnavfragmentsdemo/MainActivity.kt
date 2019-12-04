@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if (fragment != null) {
             val ft = supportFragmentManager
                 .beginTransaction()
-            ft.add(R.id.fragmentContainer, fragment!!, tag)
+            ft.replace(R.id.fragmentContainer, fragment!!, tag)
             if (toBackStack) {
                 ft.addToBackStack(null)
             }
