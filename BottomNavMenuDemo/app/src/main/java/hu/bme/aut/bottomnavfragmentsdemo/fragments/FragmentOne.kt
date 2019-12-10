@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import hu.bme.aut.bottomnavfragmentsdemo.MainActivity
 import hu.bme.aut.bottomnavfragmentsdemo.R
 import kotlinx.android.synthetic.main.fragment_one.view.*
 
@@ -20,6 +21,8 @@ class FragmentOne: Fragment() {
 
         rootView.button.setOnClickListener {
             Toast.makeText(activity, "DEMO", Toast.LENGTH_LONG).show()
+
+            (activity as MainActivity).showFragmentByTag(FragmentTwo.TAG, true)
         }
 
         return rootView

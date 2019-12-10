@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         showFragmentByTag(FragmentOne.TAG, false)
     }
 
-    private fun showFragmentByTag(tag: String,
+    public fun showFragmentByTag(tag: String,
                                   toBackStack: Boolean) {
         var fragment: Fragment? = supportFragmentManager.findFragmentByTag(tag)
         if (fragment == null) {
